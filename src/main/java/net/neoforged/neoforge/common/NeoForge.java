@@ -14,7 +14,7 @@ public class NeoForge {
      * The NeoForge event bus, used for most events.
      * Also known as the "game" bus.
      */
-    public static final IEventBus EVENT_BUS = BusBuilder.builder().startShutdown().classChecker(eventType -> {
+    public static final IEventBus EVENT_BUS = BusBuilder.builder().classChecker(eventType -> {
         if (IModBusEvent.class.isAssignableFrom(eventType)) {
             throw new IllegalArgumentException("IModBusEvent events are not allowed on the common NeoForge bus! Use a mod bus instead.");
         }
