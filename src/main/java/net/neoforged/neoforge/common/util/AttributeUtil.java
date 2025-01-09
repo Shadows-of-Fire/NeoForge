@@ -5,14 +5,15 @@
 
 package net.neoforged.neoforge.common.util;
 
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.TreeMultimap;
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.Reference2ReferenceLinkedOpenHashMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -153,7 +154,7 @@ public class AttributeUtil {
         }
 
         // Collect all the base modifiers
-        Map<Holder<Attribute>, BaseModifier> baseModifs = new IdentityHashMap<>();
+        Map<Holder<Attribute>, BaseModifier> baseModifs = new Reference2ReferenceLinkedOpenHashMap<>();
 
         var it = modifierMap.entries().iterator();
         while (it.hasNext()) {
@@ -287,7 +288,8 @@ public class AttributeUtil {
      * Creates a sorted {@link TreeMultimap} used to ensure a stable iteration order of item attribute modifiers.
      */
     public static Multimap<Holder<Attribute>, AttributeModifier> sortedMap() {
-        return TreeMultimap.create(Comparator.comparing(Holder::getKey), ATTRIBUTE_MODIFIER_COMPARATOR);
+        return LinkedListMultimap.create();
+        // return TreeMultimap.create(Comparator.comparing(Holder::getKey), ATTRIBUTE_MODIFIER_COMPARATOR);
     }
 
     /**
