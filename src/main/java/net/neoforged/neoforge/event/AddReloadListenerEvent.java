@@ -8,18 +8,12 @@ package net.neoforged.neoforge.event;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.neoforged.bus.api.Event;
-import net.neoforged.fml.ModLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.resource.ContextAwareReloadListener;
 
 /**
  * The main ResourceManager is recreated on each reload, just after {@link ReloadableServerResources}'s creation.
@@ -41,7 +35,7 @@ public class AddReloadListenerEvent extends Event {
      * @param listener the listener to add to the ResourceManager on reload
      */
     public void addListener(PreparableReloadListener listener) {
-        listeners.add(new WrappedStateAwareListener(listener));
+        listeners.add(listener);
     }
 
     public List<PreparableReloadListener> getListeners() {
@@ -72,28 +66,5 @@ public class AddReloadListenerEvent extends Event {
      */
     public RegistryAccess getRegistryAccess() {
         return registryAccess;
-    }
-
-    private static class WrappedStateAwareListener extends ContextAwareReloadListener implements PreparableReloadListener {
-        private final PreparableReloadListener wrapped;
-
-        private WrappedStateAwareListener(final PreparableReloadListener wrapped) {
-            this.wrapped = wrapped;
-        }
-
-        @Override
-        public void injectContext(ICondition.IContext context, HolderLookup.Provider registryLookup) {
-            if (this.wrapped instanceof ContextAwareReloadListener contextAwareListener) {
-                contextAwareListener.injectContext(context, registryLookup);
-            }
-        }
-
-        @Override
-        public CompletableFuture<Void> reload(final PreparationBarrier stage, final ResourceManager resourceManager, final Executor backgroundExecutor, final Executor gameExecutor) {
-            if (!ModLoader.hasErrors())
-                return wrapped.reload(stage, resourceManager, backgroundExecutor, gameExecutor);
-            else
-                return CompletableFuture.completedFuture(null);
-        }
     }
 }
