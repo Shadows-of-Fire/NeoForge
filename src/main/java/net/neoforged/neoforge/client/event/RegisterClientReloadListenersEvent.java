@@ -5,15 +5,18 @@
 
 package net.neoforged.neoforge.client.event;
 
+import org.jetbrains.annotations.ApiStatus;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.ICancellableEvent;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.event.IModBusEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
-import org.jetbrains.annotations.ApiStatus;
+import net.neoforged.neoforge.event.SortedReloadListenerEvent;
+import net.neoforged.neoforge.resource.VanillaClientListeners;
 
 /**
  * Fired to allow mods to register their reload listeners on the client-side resource manager.
@@ -25,20 +28,22 @@ import org.jetbrains.annotations.ApiStatus;
  *
  * <p>This event is fired on the mod-specific event bus, only on the {@linkplain LogicalSide#CLIENT logical client}.</p>
  */
-public class RegisterClientReloadListenersEvent extends Event implements IModBusEvent {
-    private final ReloadableResourceManager resourceManager;
+public class RegisterClientReloadListenersEvent extends SortedReloadListenerEvent implements IModBusEvent {
 
     @ApiStatus.Internal
     public RegisterClientReloadListenersEvent(ReloadableResourceManager resourceManager) {
-        this.resourceManager = resourceManager;
+        super(resourceManager.listeners, RegisterClientReloadListenersEvent::lookupName);
     }
 
-    /**
-     * Registers the given reload listener to the client-side resource manager.
-     *
-     * @param reloadListener the reload listener
-     */
-    public void registerReloadListener(PreparableReloadListener reloadListener) {
-        resourceManager.registerReloadListener(reloadListener);
+    private static ResourceLocation lookupName(PreparableReloadListener listener) {
+        ResourceLocation key = VanillaClientListeners.getNameForClass(listener.getClass());
+        if (key == null) {
+            if (listener.getClass().getPackageName().startsWith("net.minecraft")) {
+                throw new IllegalArgumentException("A key for the reload listener " + listener + " was not provided in VanillaClientListeners!");
+            } else {
+                throw new IllegalArgumentException("A non-vanilla reload listener " + listener + " was added via mixin before the AddReloadListenerEvent! Mod-added listeners must go through the event.");
+            }
+        }
+        return key;
     }
 }

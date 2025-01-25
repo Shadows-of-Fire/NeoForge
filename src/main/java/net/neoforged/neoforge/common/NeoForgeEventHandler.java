@@ -39,6 +39,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.payload.RegistryDataMapSyncPayload;
 import net.neoforged.neoforge.registries.DataMapLoader;
 import net.neoforged.neoforge.registries.RegistryManager;
+import net.neoforged.neoforge.resource.NeoListenerNames;
 import net.neoforged.neoforge.server.command.ConfigCommand;
 import net.neoforged.neoforge.server.command.NeoForgeCommand;
 import org.jetbrains.annotations.ApiStatus;
@@ -152,8 +153,8 @@ public class NeoForgeEventHandler {
     @SubscribeEvent
     public void onResourceReload(AddReloadListenerEvent event) {
         INSTANCE = new LootModifierManager();
-        event.addListener(INSTANCE);
-        event.addListener(DATA_MAPS = new DataMapLoader(event.getConditionContext(), event.getRegistryAccess()));
+        event.addListener(NeoListenerNames.LOOT_MODIFIERS, INSTANCE);
+        event.addListener(NeoListenerNames.DATA_MAPS, DATA_MAPS = new DataMapLoader(event.getConditionContext(), event.getRegistryAccess()));
     }
 
     static LootModifierManager getLootModifierManager() {
@@ -164,7 +165,7 @@ public class NeoForgeEventHandler {
 
     @SubscribeEvent
     public void resourceReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(CreativeModeTabRegistry.getReloadListener());
+        event.addListener(NeoListenerNames.CREATIVE_TABS, CreativeModeTabRegistry.getReloadListener());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

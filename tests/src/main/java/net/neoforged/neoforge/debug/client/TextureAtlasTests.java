@@ -14,12 +14,16 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterMaterialAtlasesEvent;
+import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.testframework.DynamicTest;
 import net.neoforged.testframework.annotation.ForEachTest;
 import net.neoforged.testframework.annotation.TestHolder;
 
 @ForEachTest(side = Dist.CLIENT, groups = { "client.texture_atlas", "texture_atlas" })
 public class TextureAtlasTests {
+
+    public static final ResourceLocation LISTENER_NAME = ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "atlas_test");
+    
     @TestHolder(description = { "Tests that texture atlases intended for use with Material are correctly registered and loaded" }, enabledByDefault = true)
     static void testMaterialAtlas(final DynamicTest test) {
         String modId = test.createModId();
@@ -31,7 +35,7 @@ public class TextureAtlasTests {
         });
 
         test.framework().modEventBus().addListener(RegisterClientReloadListenersEvent.class, event -> {
-            event.registerReloadListener((ResourceManagerReloadListener) manager -> {
+            event.addListener(LISTENER_NAME, (ResourceManagerReloadListener) manager -> {
                 try {
                     Minecraft.getInstance().getModelManager().getAtlas(atlasLoc);
                 } catch (NullPointerException npe) {

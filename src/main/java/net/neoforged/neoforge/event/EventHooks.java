@@ -801,7 +801,7 @@ public class EventHooks {
     public static List<PreparableReloadListener> onResourceReload(ReloadableServerResources serverResources, RegistryAccess registryAccess) {
         AddReloadListenerEvent event = new AddReloadListenerEvent(serverResources, registryAccess);
         NeoForge.EVENT_BUS.post(event);
-        return event.getListeners();
+        return event.sortListeners();
     }
 
     public static void onCommandRegister(CommandDispatcher<CommandSourceStack> dispatcher, Commands.CommandSelection environment, CommandBuildContext context) {

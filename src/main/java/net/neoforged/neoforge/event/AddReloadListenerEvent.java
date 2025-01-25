@@ -5,15 +5,15 @@
 
 package net.neoforged.neoforge.event;
 
-import com.google.common.collect.ImmutableList;
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.ApiStatus;
+
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.neoforged.bus.api.Event;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.resource.VanillaServerListeners;
 
 /**
  * The main ResourceManager is recreated on each reload, just after {@link ReloadableServerResources}'s creation.
@@ -21,25 +21,16 @@ import net.neoforged.neoforge.common.conditions.ICondition;
  * The event is fired on each reload and lets modders add their own ReloadListeners, for server-side resources.
  * The event is fired on the {@link NeoForge#EVENT_BUS}
  */
-public class AddReloadListenerEvent extends Event {
-    private final List<PreparableReloadListener> listeners = new ArrayList<>();
+public class AddReloadListenerEvent extends SortedReloadListenerEvent {
+
     private final ReloadableServerResources serverResources;
     private final RegistryAccess registryAccess;
 
+    @ApiStatus.Internal
     public AddReloadListenerEvent(ReloadableServerResources serverResources, RegistryAccess registryAccess) {
+        super(serverResources.listeners(), AddReloadListenerEvent::lookupName);
         this.serverResources = serverResources;
         this.registryAccess = registryAccess;
-    }
-
-    /**
-     * @param listener the listener to add to the ResourceManager on reload
-     */
-    public void addListener(PreparableReloadListener listener) {
-        listeners.add(listener);
-    }
-
-    public List<PreparableReloadListener> getListeners() {
-        return ImmutableList.copyOf(listeners);
     }
 
     /**
@@ -67,4 +58,17 @@ public class AddReloadListenerEvent extends Event {
     public RegistryAccess getRegistryAccess() {
         return registryAccess;
     }
+
+    private static ResourceLocation lookupName(PreparableReloadListener listener) {
+        ResourceLocation key = VanillaServerListeners.getNameForClass(listener.getClass());
+        if (key == null) {
+            if (listener.getClass().getPackageName().startsWith("net.minecraft")) {
+                throw new IllegalArgumentException("A key for the reload listener " + listener + " was not provided in VanillaServerListeners!");
+            } else {
+                throw new IllegalArgumentException("A non-vanilla reload listener " + listener + " was added via mixin before the AddReloadListenerEvent! Mod-added listeners must go through the event.");
+            }
+        }
+        return key;
+    }
+
 }

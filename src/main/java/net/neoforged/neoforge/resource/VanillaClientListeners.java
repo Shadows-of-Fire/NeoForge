@@ -43,6 +43,8 @@ import net.neoforged.neoforge.common.util.VanillaClassToKey;
  */
 public class VanillaClientListeners {
 
+    private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
+
     public static final ResourceLocation LANGUAGE = key(LanguageManager.class);
 
     public static final ResourceLocation TEXTURES = key(TextureManager.class);
@@ -86,8 +88,6 @@ public class VanillaClientListeners {
     public static final ResourceLocation GPU_WARNLIST = key(GpuWarnlistManager.class);
 
     public static final ResourceLocation REGIONAL_COMPLIANCES = key(PeriodicNotificationManager.class);
-
-    private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
 
     private static ResourceLocation key(Class<? extends PreparableReloadListener> cls) {
         if (knownClasses.containsKey(cls)) {

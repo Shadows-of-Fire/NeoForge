@@ -975,7 +975,11 @@ public class ClientHooks {
         GameTestHooks.registerGametests();
         registerSpriteSourceTypes();
         MenuScreens.init();
-        ModLoader.postEvent(new RegisterClientReloadListenersEvent(resourceManager));
+
+        var rlEvent = new RegisterClientReloadListenersEvent(resourceManager);
+        ModLoader.postEvent(rlEvent);
+        resourceManager.listeners = rlEvent.sortListeners();
+
         ModLoader.postEvent(new EntityRenderersEvent.RegisterLayerDefinitions());
         ModLoader.postEvent(new EntityRenderersEvent.RegisterRenderers());
         ModLoader.postEvent(new RegisterRenderStateModifiersEvent());

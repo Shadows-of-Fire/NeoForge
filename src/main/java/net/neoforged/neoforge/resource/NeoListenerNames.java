@@ -17,11 +17,17 @@ public class NeoListenerNames {
 
     public static final ResourceLocation DATA_MAPS = key("data_maps");
 
+    public static final ResourceLocation CREATIVE_TABS = key("creative_tabs");
+
     // Client Listeners
 
     public static final ResourceLocation OBJ_LOADER = key("obj_loader");
 
     public static final ResourceLocation ENTITY_ANIMATIONS = key("entity_animations");
+
+    public static final ResourceLocation BRANDING = key("branding");
+
+    public static final ResourceLocation CLIENT_MOD_LOADING = key("client_mod_loading");
 
     private static ResourceLocation key(String path) {
         return ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, path);

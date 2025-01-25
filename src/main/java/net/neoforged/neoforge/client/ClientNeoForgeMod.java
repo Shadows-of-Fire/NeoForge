@@ -6,6 +6,9 @@
 package net.neoforged.neoforge.client;
 
 import java.util.Optional;
+
+import org.jetbrains.annotations.ApiStatus;
+
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
@@ -38,6 +41,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.client.loading.ClientModLoader;
 import net.neoforged.neoforge.client.model.EmptyModel;
 import net.neoforged.neoforge.client.model.UnbakedCompositeModel;
 import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
@@ -64,8 +68,10 @@ import net.neoforged.neoforge.common.data.internal.NeoForgeStructureTagsProvider
 import net.neoforged.neoforge.common.data.internal.VanillaSoundDefinitionsProvider;
 import net.neoforged.neoforge.common.util.SelfTest;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.internal.BrandingControl;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
-import org.jetbrains.annotations.ApiStatus;
+import net.neoforged.neoforge.resource.NeoListenerNames;
+import net.neoforged.neoforge.resource.VanillaClientListeners;
 
 @ApiStatus.Internal
 @Mod(value = "neoforge", dist = Dist.CLIENT)
@@ -132,8 +138,14 @@ public class ClientNeoForgeMod {
 
     @SubscribeEvent
     static void onRegisterReloadListeners(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener(ObjLoader.INSTANCE);
-        event.registerReloadListener(AnimationLoader.INSTANCE);
+        event.addListener(NeoListenerNames.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
+        event.addListener(NeoListenerNames.BRANDING, BrandingControl.resourceManagerReloadListener());
+
+        event.addDependency(NeoListenerNames.CLIENT_MOD_LOADING, NeoListenerNames.BRANDING);
+        event.addDependency(NeoListenerNames.BRANDING, VanillaClientListeners.LANGUAGE);
+
+        event.addListener(NeoListenerNames.OBJ_LOADER, ObjLoader.INSTANCE);
+        event.addListener(NeoListenerNames.ENTITY_ANIMATIONS, AnimationLoader.INSTANCE);
     }
 
     @SubscribeEvent

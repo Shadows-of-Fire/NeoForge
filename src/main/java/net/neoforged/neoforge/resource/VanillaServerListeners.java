@@ -24,13 +24,13 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  */
 public class VanillaServerListeners {
 
+    private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
+
     public static final ResourceLocation RECIPES = key(RecipeManager.class);
 
     public static final ResourceLocation FUNCTIONS = key(ServerFunctionLibrary.class);
 
     public static final ResourceLocation ADVANCEMENTS = key(ServerAdvancementManager.class);
-
-    private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
 
     private static ResourceLocation key(Class<? extends PreparableReloadListener> cls) {
         if (knownClasses.containsKey(cls)) {
