@@ -21,9 +21,8 @@ import net.neoforged.testframework.annotation.TestHolder;
 
 @ForEachTest(side = Dist.CLIENT, groups = { "client.texture_atlas", "texture_atlas" })
 public class TextureAtlasTests {
-
     public static final ResourceLocation LISTENER_NAME = ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "atlas_test");
-    
+
     @TestHolder(description = { "Tests that texture atlases intended for use with Material are correctly registered and loaded" }, enabledByDefault = true)
     static void testMaterialAtlas(final DynamicTest test) {
         String modId = test.createModId();

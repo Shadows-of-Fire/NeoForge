@@ -6,9 +6,6 @@
 package net.neoforged.neoforge.client;
 
 import java.util.Optional;
-
-import org.jetbrains.annotations.ApiStatus;
-
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
@@ -30,9 +27,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfigs;
 import net.neoforged.neoforge.client.color.item.FluidContentsTint;
 import net.neoforged.neoforge.client.entity.animation.json.AnimationLoader;
+import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterNamedRenderTypesEvent;
@@ -72,6 +69,7 @@ import net.neoforged.neoforge.internal.BrandingControl;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.resource.NeoListenerNames;
 import net.neoforged.neoforge.resource.VanillaClientListeners;
+import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 @Mod(value = "neoforge", dist = Dist.CLIENT)

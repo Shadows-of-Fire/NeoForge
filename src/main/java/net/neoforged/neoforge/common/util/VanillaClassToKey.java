@@ -1,11 +1,14 @@
+/*
+ * Copyright (c) NeoForged and contributors
+ * SPDX-License-Identifier: LGPL-2.1-only
+ */
+
 package net.neoforged.neoforge.common.util;
 
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.include.com.google.common.base.Preconditions;
 
-import net.minecraft.resources.ResourceLocation;
-
 public class VanillaClassToKey {
-
     /**
      * Converts a vanilla class name into an identifier compliant with the rules set by {@link ResourceLocation}.
      * <p>
@@ -31,5 +34,4 @@ public class VanillaClassToKey {
 
         return ResourceLocation.withDefaultNamespace(sb.substring(1)); // The string will be prefixed with an additional `_` since the first character is uppercase.
     }
-
 }

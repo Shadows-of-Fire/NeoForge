@@ -1,5 +1,13 @@
 package net.neoforged.neoforge.event;
 
+import com.google.common.graph.ElementOrder;
+import com.google.common.graph.Graph;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.Graphs;
+import com.google.common.graph.MutableGraph;
+import com.google.common.graph.Traverser;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.IdentityHashMap;
@@ -10,23 +18,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import org.jetbrains.annotations.ApiStatus;
-
-import com.google.common.graph.ElementOrder;
-import com.google.common.graph.Graph;
-import com.google.common.graph.GraphBuilder;
-import com.google.common.graph.Graphs;
-import com.google.common.graph.MutableGraph;
-import com.google.common.graph.Traverser;
-
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.loading.toposort.CyclePresentException;
 import net.neoforged.fml.loading.toposort.TopologicalSort;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Base class for {@link AddReloadListenerEvent} and {@link RegisterClientReloadListenerEvent}.
@@ -34,7 +31,6 @@ import net.neoforged.fml.loading.toposort.TopologicalSort;
  * This class holds the sorting logic that allows for the creation of dependency ordering.
  */
 public class SortedReloadListenerEvent extends Event {
-
     private final Map<ResourceLocation, PreparableReloadListener> registry = new LinkedHashMap<>();
     private final Map<PreparableReloadListener, ResourceLocation> keys = new IdentityHashMap<>();
     private final MutableGraph<PreparableReloadListener> graph = GraphBuilder.directed().nodeOrder(ElementOrder.insertion()).build();
@@ -206,7 +202,6 @@ public class SortedReloadListenerEvent extends Event {
 
     @FunctionalInterface
     protected interface NameLookup extends Function<PreparableReloadListener, ResourceLocation> {
-
         /**
          * Looks up the name for a reload listener in the side-specific vanilla name list.
          * 
@@ -215,5 +210,4 @@ public class SortedReloadListenerEvent extends Event {
         @Override
         ResourceLocation apply(PreparableReloadListener t);
     }
-
 }

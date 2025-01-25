@@ -5,8 +5,6 @@
 
 package net.neoforged.neoforge.event;
 
-import org.jetbrains.annotations.ApiStatus;
-
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ReloadableServerResources;
@@ -14,6 +12,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.resource.VanillaServerListeners;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * The main ResourceManager is recreated on each reload, just after {@link ReloadableServerResources}'s creation.
@@ -22,7 +21,6 @@ import net.neoforged.neoforge.resource.VanillaServerListeners;
  * The event is fired on the {@link NeoForge#EVENT_BUS}
  */
 public class AddReloadListenerEvent extends SortedReloadListenerEvent {
-
     private final ReloadableServerResources serverResources;
     private final RegistryAccess registryAccess;
 
@@ -70,5 +68,4 @@ public class AddReloadListenerEvent extends SortedReloadListenerEvent {
         }
         return key;
     }
-
 }

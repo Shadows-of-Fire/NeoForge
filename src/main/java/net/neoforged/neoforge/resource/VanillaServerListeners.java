@@ -2,10 +2,6 @@ package net.neoforged.neoforge.resource;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.ServerFunctionLibrary;
@@ -13,6 +9,8 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.common.util.VanillaClassToKey;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Keys for vanilla {@link PreparableReloadListener reload listeners}, used to specify dependency ordering in the {@link AddReloadListenerEvent}.
@@ -23,7 +21,6 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @see {@link NeoListenerNames} for Neo-added listener names.
  */
 public class VanillaServerListeners {
-
     private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
 
     public static final ResourceLocation RECIPES = key(RecipeManager.class);

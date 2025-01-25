@@ -11,8 +11,8 @@ import com.google.gson.JsonParseException;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
-import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 
 /**
  * A loader for custom {@linkplain UnbakedModel unbaked models}.

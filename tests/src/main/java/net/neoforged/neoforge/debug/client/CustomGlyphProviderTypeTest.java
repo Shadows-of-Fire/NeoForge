@@ -30,7 +30,7 @@ public class CustomGlyphProviderTypeTest {
             GlyphProviderType.class, "neotests:reference_2", Reference2.CODEC);
 
     public static final ResourceLocation LISTENER_NAME = ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "glyph_test");
-    
+
     @TestHolder(description = "Tests if custom GlyphProviderTypes were used for loading resources", enabledByDefault = true)
     static void setupGlyphProviderTypeTest(DynamicTest test) {
         test.framework().modEventBus().addListener((AddClientReloadListenerEvent event) -> event.addListener(LISTENER_NAME, new SimplePreparableReloadListener<Void>() {

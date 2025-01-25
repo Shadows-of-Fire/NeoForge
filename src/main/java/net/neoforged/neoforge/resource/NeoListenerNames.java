@@ -12,7 +12,6 @@ import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 public class NeoListenerNames {
 
     // Server Listeners
-
     public static final ResourceLocation LOOT_MODIFIERS = key("loot_modifiers");
 
     public static final ResourceLocation DATA_MAPS = key("data_maps");
