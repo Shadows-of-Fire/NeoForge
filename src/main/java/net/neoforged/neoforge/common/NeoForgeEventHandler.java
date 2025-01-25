@@ -46,6 +46,9 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public class NeoForgeEventHandler {
+    private static LootModifierManager LOOT_MODIFIER_MANAGER;
+    private static DataMapLoader DATA_MAP_LOADER;
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onEntityJoinWorld(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
@@ -103,7 +106,7 @@ public class NeoForgeEventHandler {
     @SubscribeEvent
     public void tagsUpdated(TagsUpdatedEvent event) {
         if (event.getUpdateCause() == TagsUpdatedEvent.UpdateCause.SERVER_DATA_LOAD) {
-            DATA_MAPS.apply();
+            DATA_MAP_LOADER.apply();
         }
     }
 
@@ -147,25 +150,17 @@ public class NeoForgeEventHandler {
         ConfigCommand.register(event.getDispatcher());
     }
 
-    private static LootModifierManager INSTANCE;
-    private static DataMapLoader DATA_MAPS;
-
     @SubscribeEvent
     public void onResourceReload(AddReloadListenerEvent event) {
-        INSTANCE = new LootModifierManager();
-        event.addListener(NeoListenerNames.LOOT_MODIFIERS, INSTANCE);
-        event.addListener(NeoListenerNames.DATA_MAPS, DATA_MAPS = new DataMapLoader(event.getConditionContext(), event.getRegistryAccess()));
+        event.addListener(NeoListenerNames.LOOT_MODIFIERS, LOOT_MODIFIER_MANAGER = new LootModifierManager());
+        event.addListener(NeoListenerNames.DATA_MAPS, DATA_MAP_LOADER = new DataMapLoader(event.getConditionContext(), event.getRegistryAccess()));
+        event.addListener(NeoListenerNames.CREATIVE_TABS, CreativeModeTabRegistry.getReloadListener());
     }
 
     static LootModifierManager getLootModifierManager() {
-        if (INSTANCE == null)
+        if (LOOT_MODIFIER_MANAGER == null)
             throw new IllegalStateException("Can not retrieve LootModifierManager until resources have loaded once.");
-        return INSTANCE;
-    }
-
-    @SubscribeEvent
-    public void resourceReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(NeoListenerNames.CREATIVE_TABS, CreativeModeTabRegistry.getReloadListener());
+        return LOOT_MODIFIER_MANAGER;
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
