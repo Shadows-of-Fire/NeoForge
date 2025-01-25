@@ -139,6 +139,7 @@ public class ClientNeoForgeMod {
         event.addListener(NeoListenerNames.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
         event.addListener(NeoListenerNames.BRANDING, BrandingControl.resourceManagerReloadListener());
 
+        // These run before vanilla reload listeners, so we add them before LANGUAGE, the first vanilla one.
         event.addDependency(NeoListenerNames.CLIENT_MOD_LOADING, NeoListenerNames.BRANDING);
         event.addDependency(NeoListenerNames.BRANDING, VanillaClientListeners.LANGUAGE);
 
