@@ -151,7 +151,7 @@ import net.neoforged.neoforge.client.event.GatherEffectScreenTooltipsEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMaterialAtlasesEvent;
@@ -976,7 +976,7 @@ public class ClientHooks {
         registerSpriteSourceTypes();
         MenuScreens.init();
 
-        var rlEvent = new RegisterClientReloadListenersEvent(resourceManager);
+        var rlEvent = new AddClientReloadListenerEvent(resourceManager);
         ModLoader.postEvent(rlEvent);
         resourceManager.listeners = rlEvent.sortListeners();
 

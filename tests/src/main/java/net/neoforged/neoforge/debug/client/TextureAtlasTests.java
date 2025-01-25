@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
 import net.neoforged.neoforge.client.event.RegisterMaterialAtlasesEvent;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.testframework.DynamicTest;
@@ -34,7 +34,7 @@ public class TextureAtlasTests {
             event.register(atlasLoc, infoLoc);
         });
 
-        test.framework().modEventBus().addListener(RegisterClientReloadListenersEvent.class, event -> {
+        test.framework().modEventBus().addListener(AddClientReloadListenerEvent.class, event -> {
             event.addListener(LISTENER_NAME, (ResourceManagerReloadListener) manager -> {
                 try {
                     Minecraft.getInstance().getModelManager().getAtlas(atlasLoc);

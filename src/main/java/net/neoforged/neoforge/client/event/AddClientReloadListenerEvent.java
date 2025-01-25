@@ -28,11 +28,11 @@ import net.neoforged.neoforge.resource.VanillaClientListeners;
  *
  * <p>This event is fired on the mod-specific event bus, only on the {@linkplain LogicalSide#CLIENT logical client}.</p>
  */
-public class RegisterClientReloadListenersEvent extends SortedReloadListenerEvent implements IModBusEvent {
+public class AddClientReloadListenerEvent extends SortedReloadListenerEvent implements IModBusEvent {
 
     @ApiStatus.Internal
-    public RegisterClientReloadListenersEvent(ReloadableResourceManager resourceManager) {
-        super(resourceManager.listeners, RegisterClientReloadListenersEvent::lookupName);
+    public AddClientReloadListenerEvent(ReloadableResourceManager resourceManager) {
+        super(resourceManager.listeners, AddClientReloadListenerEvent::lookupName);
     }
 
     private static ResourceLocation lookupName(PreparableReloadListener listener) {

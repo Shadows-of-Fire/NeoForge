@@ -30,11 +30,11 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
 import net.neoforged.neoforge.common.util.VanillaClassToKey;
 
 /**
- * Keys for vanilla {@link PreparableReloadListener reload listeners}, used to specify dependency ordering in the {@link RegisterClientReloadListenersEvent}.
+ * Keys for vanilla {@link PreparableReloadListener reload listeners}, used to specify dependency ordering in the {@link AddClientReloadListenerEvent}.
  * <p>
  * Due to the volume of vanilla listeners, these keys are automatically generated based on the class name.
  * 
