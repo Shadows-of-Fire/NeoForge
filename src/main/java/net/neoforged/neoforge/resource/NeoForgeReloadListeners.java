@@ -14,7 +14,7 @@ import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
  * @see {@link VanillaClientListeners} for vanilla client listener names.
  * @see {@link VanillaServerListeners} for vanilla server listener names.
  */
-public class NeoListenerNames {
+public class NeoForgeReloadListeners {
 
     // Server Listeners
     public static final ResourceLocation LOOT_MODIFIERS = key("loot_modifiers");

@@ -23,10 +23,10 @@ import org.jetbrains.annotations.Nullable;
  * Due to the volume of vanilla listeners, these keys are automatically generated based on the class name.
  * 
  * @see {@link VanillaClientListeners} for vanilla client listener names.
- * @see {@link NeoListenerNames} for Neo-added listener names.
+ * @see {@link NeoForgeReloadListeners} for Neo-added listener names.
  */
 public class VanillaServerListeners {
-    private static Map<Class<?>, ResourceLocation> knownClasses = new LinkedHashMap<>();
+    private static final Map<Class<?>, ResourceLocation> KNOWN_CLASSES = new LinkedHashMap<>();
 
     public static final ResourceLocation RECIPES = key(RecipeManager.class);
 
@@ -35,19 +35,19 @@ public class VanillaServerListeners {
     public static final ResourceLocation ADVANCEMENTS = key(ServerAdvancementManager.class);
 
     private static ResourceLocation key(Class<? extends PreparableReloadListener> cls) {
-        if (knownClasses.containsKey(cls)) {
+        if (KNOWN_CLASSES.containsKey(cls)) {
             // Prevent duplicate registration, in case we accidentally use the same class in two different fields.
             throw new UnsupportedOperationException("Attempted to create two keys for the same class");
         }
 
         ResourceLocation key = VanillaClassToKey.convert(cls);
-        knownClasses.put(cls, key);
+        KNOWN_CLASSES.put(cls, key);
         return key;
     }
 
     @Nullable
     @ApiStatus.Internal
     public static ResourceLocation getNameForClass(Class<? extends PreparableReloadListener> cls) {
-        return knownClasses.get(cls);
+        return KNOWN_CLASSES.get(cls);
     }
 }

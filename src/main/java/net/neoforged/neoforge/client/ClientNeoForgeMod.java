@@ -67,7 +67,7 @@ import net.neoforged.neoforge.common.util.SelfTest;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.internal.BrandingControl;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
-import net.neoforged.neoforge.resource.NeoListenerNames;
+import net.neoforged.neoforge.resource.NeoForgeReloadListeners;
 import net.neoforged.neoforge.resource.VanillaClientListeners;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -136,15 +136,15 @@ public class ClientNeoForgeMod {
 
     @SubscribeEvent
     static void onRegisterReloadListeners(AddClientReloadListenerEvent event) {
-        event.addListener(NeoListenerNames.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
-        event.addListener(NeoListenerNames.BRANDING, BrandingControl.resourceManagerReloadListener());
+        event.addListener(NeoForgeReloadListeners.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
+        event.addListener(NeoForgeReloadListeners.BRANDING, BrandingControl.resourceManagerReloadListener());
 
         // These run before vanilla reload listeners, so we add them before LANGUAGE, the first vanilla one.
-        event.addDependency(NeoListenerNames.CLIENT_MOD_LOADING, NeoListenerNames.BRANDING);
-        event.addDependency(NeoListenerNames.BRANDING, VanillaClientListeners.LANGUAGE);
+        event.addDependency(NeoForgeReloadListeners.CLIENT_MOD_LOADING, NeoForgeReloadListeners.BRANDING);
+        event.addDependency(NeoForgeReloadListeners.BRANDING, VanillaClientListeners.LANGUAGE);
 
-        event.addListener(NeoListenerNames.OBJ_LOADER, ObjLoader.INSTANCE);
-        event.addListener(NeoListenerNames.ENTITY_ANIMATIONS, AnimationLoader.INSTANCE);
+        event.addListener(NeoForgeReloadListeners.OBJ_LOADER, ObjLoader.INSTANCE);
+        event.addListener(NeoForgeReloadListeners.ENTITY_ANIMATIONS, AnimationLoader.INSTANCE);
     }
 
     @SubscribeEvent

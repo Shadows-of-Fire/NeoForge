@@ -79,7 +79,7 @@ public abstract class SortedReloadListenerEvent extends Event {
      * 
      * @throws IllegalArgumentException if either {@code first} or {@code second} has not been registered via {@link #addListener}.
      * 
-     * @see {@link NeoListenerNames} for Neo's reload listener keys.
+     * @see {@link NeoForgeReloadListeners} for Neo's reload listener keys.
      * @see {@link VanillaClientListeners} for the keys of vanilla client listeners.
      * @see {@link VanillaServerListeners} for the keys of vanilla server listeners.
      */

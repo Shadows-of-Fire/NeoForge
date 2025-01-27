@@ -6,8 +6,10 @@
 package net.neoforged.neoforge.common.util;
 
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.include.com.google.common.base.Preconditions;
 
+@ApiStatus.Internal
 public class VanillaClassToKey {
     /**
      * Converts a vanilla class name into an identifier compliant with the rules set by {@link ResourceLocation}.
