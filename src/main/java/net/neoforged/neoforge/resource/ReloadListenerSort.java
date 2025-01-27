@@ -33,7 +33,7 @@ public class ReloadListenerSort {
      * <p>
      * This method modifies the current state of the graph to ensure that all dangling listeners run after vanilla.
      * 
-     * @return A sorted list of listeners based on the current dependency graph.
+     * @return An immutable, sorted list of listeners based on the current dependency graph.
      * 
      * @throws IllegalArgumentException if cycles were detected in the dependency graph.
      */
@@ -48,7 +48,7 @@ public class ReloadListenerSort {
      * @param graph       The mutable graph. The event only exposes a non-mutable graph, but we can just downcast it since we know it's a MutableGraph.
      * @param registry    The reload listener registry.
      * @param lastVanilla A reference to the last vanilla listener in vanilla order.
-     * @return A sorted list of listeners based on the current dependency graph.
+     * @return An immutable, sorted list of listeners based on the current dependency graph.
      * 
      * @throws IllegalArgumentException if cycles were detected in the dependency graph.
      */
