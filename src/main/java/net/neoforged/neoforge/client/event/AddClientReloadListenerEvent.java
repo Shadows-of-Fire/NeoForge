@@ -26,7 +26,7 @@ import org.jetbrains.annotations.ApiStatus;
 public class AddClientReloadListenerEvent extends SortedReloadListenerEvent implements IModBusEvent {
     @ApiStatus.Internal
     public AddClientReloadListenerEvent(ReloadableResourceManager resourceManager) {
-        super(resourceManager.listeners, AddClientReloadListenerEvent::lookupName);
+        super(resourceManager.getListeners(), AddClientReloadListenerEvent::lookupName);
     }
 
     private static ResourceLocation lookupName(PreparableReloadListener listener) {

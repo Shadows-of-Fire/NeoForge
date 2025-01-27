@@ -13,10 +13,19 @@
      public void registerReloadListener(PreparableReloadListener p_10714_) {
          this.listeners.add(p_10714_);
      }
-@@ -72,5 +_,15 @@
+@@ -72,5 +_,24 @@
      @Override
      public Stream<PackResources> listPacks() {
          return this.resources.listPacks();
++    }
++
++    /**
++     * Neo: Expose the reload listeners so they can be passed to the event.
++     *
++     * @return The (immutable) list of reload listeners.
++     */
++    public List<PreparableReloadListener> getListeners() {
++        return this.listeners;
 +    }
 +
 +    /**
