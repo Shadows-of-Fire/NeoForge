@@ -288,8 +288,7 @@ public class AttributeUtil {
      * Creates a sorted {@link TreeMultimap} used to ensure a stable iteration order of item attribute modifiers.
      */
     public static Multimap<Holder<Attribute>, AttributeModifier> sortedMap() {
-        return LinkedListMultimap.create();
-        // return TreeMultimap.create(Comparator.comparing(Holder::getKey), ATTRIBUTE_MODIFIER_COMPARATOR);
+        return TreeMultimap.create(Comparator.comparing(Holder::getKey), ATTRIBUTE_MODIFIER_COMPARATOR);
     }
 
     /**
@@ -301,7 +300,7 @@ public class AttributeUtil {
      * @param slot  The slot group to query modifiers for.
      */
     public static Multimap<Holder<Attribute>, AttributeModifier> getSortedModifiers(ItemStack stack, EquipmentSlotGroup slot) {
-        Multimap<Holder<Attribute>, AttributeModifier> map = sortedMap();
+        Multimap<Holder<Attribute>, AttributeModifier> map = LinkedListMultimap.create();
         stack.forEachModifier(slot, (attr, modif) -> {
             if (attr != null && modif != null) {
                 map.put(attr, modif);
