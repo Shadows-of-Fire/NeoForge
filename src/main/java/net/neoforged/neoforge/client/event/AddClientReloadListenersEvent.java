@@ -21,12 +21,12 @@ import org.jetbrains.annotations.ApiStatus;
  * <p>
  * This event is only fired on the {@linkplain LogicalSide#CLIENT logical client}.
  * 
- * @see {@link AddReloadListenerEvent} for registering server-side reload listeners.
+ * @see {@link AddServerReloadListenersEvent} for registering server-side reload listeners.
  */
-public class AddClientReloadListenerEvent extends SortedReloadListenerEvent implements IModBusEvent {
+public class AddClientReloadListenersEvent extends SortedReloadListenerEvent implements IModBusEvent {
     @ApiStatus.Internal
-    public AddClientReloadListenerEvent(ReloadableResourceManager resourceManager) {
-        super(resourceManager.getListeners(), AddClientReloadListenerEvent::lookupName);
+    public AddClientReloadListenersEvent(ReloadableResourceManager resourceManager) {
+        super(resourceManager.getListeners(), AddClientReloadListenersEvent::lookupName);
     }
 
     private static ResourceLocation lookupName(PreparableReloadListener listener) {

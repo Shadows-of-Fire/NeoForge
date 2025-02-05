@@ -13,12 +13,12 @@ import net.minecraft.server.ServerFunctionLibrary;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.common.util.VanillaClassToKey;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Keys for vanilla {@link PreparableReloadListener reload listeners}, used to specify dependency ordering in the {@link AddReloadListenerEvent}.
+ * Keys for vanilla {@link PreparableReloadListener reload listeners}, used to specify dependency ordering in the {@link AddServerReloadListenersEvent}.
  * <p>
  * Due to the volume of vanilla listeners, these keys are automatically generated based on the class name.
  * 

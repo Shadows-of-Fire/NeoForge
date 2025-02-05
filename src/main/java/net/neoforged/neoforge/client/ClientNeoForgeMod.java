@@ -27,7 +27,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfigs;
 import net.neoforged.neoforge.client.color.item.FluidContentsTint;
 import net.neoforged.neoforge.client.entity.animation.json.AnimationLoader;
-import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -135,7 +135,7 @@ public class ClientNeoForgeMod {
     }
 
     @SubscribeEvent
-    static void onRegisterReloadListeners(AddClientReloadListenerEvent event) {
+    static void onRegisterReloadListeners(AddClientReloadListenersEvent event) {
         event.addListener(NeoForgeReloadListeners.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
         event.addListener(NeoForgeReloadListeners.BRANDING, BrandingControl.resourceManagerReloadListener());
 

@@ -20,19 +20,19 @@ import org.jetbrains.annotations.ApiStatus;
  * The event is fired on each reload and lets modders add their own ReloadListeners, for server-side resources.
  * The event is fired on the {@link NeoForge#EVENT_BUS}
  */
-public class AddReloadListenerEvent extends SortedReloadListenerEvent {
+public class AddServerReloadListenersEvent extends SortedReloadListenerEvent {
     private final ReloadableServerResources serverResources;
     private final RegistryAccess registryAccess;
 
     @ApiStatus.Internal
-    public AddReloadListenerEvent(ReloadableServerResources serverResources, RegistryAccess registryAccess) {
-        super(serverResources.listeners(), AddReloadListenerEvent::lookupName);
+    public AddServerReloadListenersEvent(ReloadableServerResources serverResources, RegistryAccess registryAccess) {
+        super(serverResources.listeners(), AddServerReloadListenersEvent::lookupName);
         this.serverResources = serverResources;
         this.registryAccess = registryAccess;
     }
 
     /**
-     * @return The ReloableServerResources being reloaded.
+     * @return The {@link ReloadableServerResources} being reloaded.
      */
     public ReloadableServerResources getServerResources() {
         return serverResources;

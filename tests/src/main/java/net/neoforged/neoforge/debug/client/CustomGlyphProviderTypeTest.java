@@ -18,7 +18,7 @@ import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
-import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.testframework.DynamicTest;
 import net.neoforged.testframework.annotation.ForEachTest;
@@ -33,7 +33,7 @@ public class CustomGlyphProviderTypeTest {
 
     @TestHolder(description = "Tests if custom GlyphProviderTypes were used for loading resources", enabledByDefault = true)
     static void setupGlyphProviderTypeTest(DynamicTest test) {
-        test.framework().modEventBus().addListener((AddClientReloadListenerEvent event) -> event.addListener(LISTENER_NAME, new SimplePreparableReloadListener<Void>() {
+        test.framework().modEventBus().addListener((AddClientReloadListenersEvent event) -> event.addListener(LISTENER_NAME, new SimplePreparableReloadListener<Void>() {
             @Override
             protected Void prepare(ResourceManager p_10796_, ProfilerFiller p_10797_) {
                 return null;

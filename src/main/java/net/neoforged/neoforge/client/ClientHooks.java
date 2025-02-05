@@ -134,7 +134,7 @@ import net.neoforged.fml.ModLoader;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.asm.enumextension.ExtensionInfo;
 import net.neoforged.neoforge.client.entity.animation.json.AnimationTypeManager;
-import net.neoforged.neoforge.client.event.AddClientReloadListenerEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.AddSectionGeometryEvent;
 import net.neoforged.neoforge.client.event.CalculateDetachedCameraDistanceEvent;
 import net.neoforged.neoforge.client.event.CalculatePlayerTurnEvent;
@@ -976,7 +976,7 @@ public class ClientHooks {
         registerSpriteSourceTypes();
         MenuScreens.init();
 
-        var rlEvent = new AddClientReloadListenerEvent(resourceManager);
+        var rlEvent = new AddClientReloadListenersEvent(resourceManager);
         ModLoader.postEvent(rlEvent);
         resourceManager.updateListenersFrom(rlEvent);
 

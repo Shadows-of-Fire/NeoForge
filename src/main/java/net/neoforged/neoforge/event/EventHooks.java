@@ -34,6 +34,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
@@ -799,8 +800,17 @@ public class EventHooks {
         return event.getNewTime();
     }
 
+    /**
+     * Fires the {@link AddServerReloadListenersEvent} and returns the sorted list of reload listeners.
+     * 
+     * @param serverResources The just-created {@link ReloadableServerResources} instance.
+     * @param registryAccess  The registry access from the {@link ReloadableServerRegistries.LoadResult}.
+     * @return The sorted list of reload listeners.
+     * 
+     * @throws IllegalArgumentException if {@link ReloadListenerSort#sort(SortedReloadListenerEvent)} detects a cycle.
+     */
     public static List<PreparableReloadListener> onResourceReload(ReloadableServerResources serverResources, RegistryAccess registryAccess) {
-        AddReloadListenerEvent event = new AddReloadListenerEvent(serverResources, registryAccess);
+        AddServerReloadListenersEvent event = new AddServerReloadListenersEvent(serverResources, registryAccess);
         NeoForge.EVENT_BUS.post(event);
         return ReloadListenerSort.sort(event);
     }
