@@ -11,8 +11,8 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.event.IModBusEvent;
+import net.neoforged.neoforge.client.resources.VanillaClientListeners;
 import net.neoforged.neoforge.event.SortedReloadListenerEvent;
-import net.neoforged.neoforge.resource.VanillaClientListeners;
 import org.jetbrains.annotations.ApiStatus;
 
 /**

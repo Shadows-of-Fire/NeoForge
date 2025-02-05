@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-only
  */
 
-package net.neoforged.neoforge.resource;
+package net.neoforged.neoforge.client.resources;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -90,6 +90,16 @@ public class VanillaClientListeners {
     public static final ResourceLocation GPU_WARNLIST = key(GpuWarnlistManager.class);
 
     public static final ResourceLocation REGIONAL_COMPLIANCES = key(PeriodicNotificationManager.class);
+
+    /**
+     * Sentinel field that will always reference the first reload listener in the vanilla order.
+     */
+    public static final ResourceLocation FIRST = LANGUAGE;
+
+    /**
+     * Sentinel field that will always reference the last reload listener in the vanilla order.
+     */
+    public static final ResourceLocation LAST = REGIONAL_COMPLIANCES;
 
     private static ResourceLocation key(Class<? extends PreparableReloadListener> cls) {
         if (KNOWN_CLASSES.containsKey(cls)) {

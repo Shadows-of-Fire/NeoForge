@@ -43,6 +43,7 @@ import net.neoforged.neoforge.client.model.EmptyModel;
 import net.neoforged.neoforge.client.model.UnbakedCompositeModel;
 import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import net.neoforged.neoforge.client.model.obj.ObjLoader;
+import net.neoforged.neoforge.client.resources.VanillaClientListeners;
 import net.neoforged.neoforge.client.textures.NamespacedDirectoryLister;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
@@ -68,7 +69,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.internal.BrandingControl;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.resource.NeoForgeReloadListeners;
-import net.neoforged.neoforge.resource.VanillaClientListeners;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -139,9 +139,9 @@ public class ClientNeoForgeMod {
         event.addListener(NeoForgeReloadListeners.CLIENT_MOD_LOADING, ClientModLoader::onResourceReload);
         event.addListener(NeoForgeReloadListeners.BRANDING, BrandingControl.resourceManagerReloadListener());
 
-        // These run before vanilla reload listeners, so we add them before LANGUAGE, the first vanilla one.
+        // These run before vanilla reload listeners.
         event.addDependency(NeoForgeReloadListeners.CLIENT_MOD_LOADING, NeoForgeReloadListeners.BRANDING);
-        event.addDependency(NeoForgeReloadListeners.BRANDING, VanillaClientListeners.LANGUAGE);
+        event.addDependency(NeoForgeReloadListeners.BRANDING, VanillaClientListeners.FIRST);
 
         event.addListener(NeoForgeReloadListeners.OBJ_LOADER, ObjLoader.INSTANCE);
         event.addListener(NeoForgeReloadListeners.ENTITY_ANIMATIONS, AnimationLoader.INSTANCE);

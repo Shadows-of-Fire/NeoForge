@@ -34,6 +34,16 @@ public class VanillaServerListeners {
 
     public static final ResourceLocation ADVANCEMENTS = key(ServerAdvancementManager.class);
 
+    /**
+     * Sentinel field that will always reference the first reload listener in the vanilla order.
+     */
+    public static final ResourceLocation FIRST = RECIPES;
+
+    /**
+     * Sentinel field that will always reference the last reload listener in the vanilla order.
+     */
+    public static final ResourceLocation LAST = ADVANCEMENTS;
+
     private static ResourceLocation key(Class<? extends PreparableReloadListener> cls) {
         if (KNOWN_CLASSES.containsKey(cls)) {
             // Prevent duplicate registration, in case we accidentally use the same class in two different fields.
